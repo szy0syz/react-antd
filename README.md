@@ -135,6 +135,8 @@ const b: IPlus<String> = connect;
 - 边框和阴影
 - 可选配置开关
 
+## Button 组件
+
 ```scss
 .btn {
   position: relative;
@@ -161,4 +163,14 @@ const b: IPlus<String> = connect;
     }
   }
 }
+```
+
+- 支持原生DOM属性
+  - 拿到所有原生button属性 `React.ButtonHTMLAttributes<HTMLElement>`
+  - 如果合并两个类型的属性呢？ `Intersection Types` 交叉类型，用 `&` 表示
+  - 联合类型 `|`，仅能返回 `a` 或 `b` 其中一个
+- `Partial<T & U>` 所有属性都变为可选属性
+
+```jsx
+
 ```
