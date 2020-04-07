@@ -172,5 +172,18 @@ const b: IPlus<String> = connect;
 - `Partial<T & U>` 所有属性都变为可选属性
 
 ```jsx
+type NativeButtonProps = React.ButtonHTMLAttributes<HTMLElement>;
+type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElement>;
+export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
+```
 
+## 第 5 章
+
+```jsx
+// 最简单的测试
+test('first react test case', () => {
+  const wrapper = render(<Button>OK</Button>);
+  const element = wrapper.queryByText('OK');
+  expect(element).toBeTruthy();
+});
 ```
