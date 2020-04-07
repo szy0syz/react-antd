@@ -1,44 +1,136 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# react-antd
 
-## Available Scripts
+## 第 2 章
 
-In the project directory, you can run:
+### typescript 究竟是什么
 
-### `yarn start`
+- JavaScript that scales
+- 静态类型风格的类型系统
+- 从 es6 到 es10 甚至是 esnext 的语法支持
+- 兼容各种浏览器，各种系统，各种服务器，完全开源
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 为什么要用 typescript
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- 程序更容易理解
+  - 问题：函数或者方法输入输出的参数类型，外部条件等
+  - 动态语言的约束：需要手动调试等过程
+- 效率更高
+  - 在不通的代码块和定义中进行跳转
+  - 代码自动补全
+  - 丰富的接口提示
+- 更少的错误
+  - 编译期间能够发现大部分错误
+  - 杜绝一些比较常见错误
+- 非常好的包容性
+  - 完全兼容 JavaScript
+  - 第三方库可以单独编写类型文件
+  - 刘丽霞的项目都支持 typescript
+- 一点小缺点
+  - 增加了一些学习成本
+  - 短期内增加了一些开发成本
 
-### `yarn test`
+### Interface 接口
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 对 对象的形状 (shape) 进行描述
+- 对类 (class) 进行抽象
+- Duck Typing (鸭子类型)
+  - 如果它像鸭子那样的叫、走路，那就可以看作是鸭子
+  - 接口更关注对象如何被使用，而不是对象的类型是什么
 
-### `yarn build`
+### class 类
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 类 (Class)：定义了一切事物的抽象特点
+- 对象 (Object)：类的实例
+- 面向对象 (OOP) 三大特性：封装、继承、多态
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Generics
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+function echo<T>(arg: T): T {
+  return arg;
+}
+const result = echo(true);
+function swap<T, U>(tuple: [T: U]): [U: T] {
+  return [tuple[1], tuple[0]];
+}
+const result2= swap(['str', 123])
+```
 
-### `yarn eject`
+- 泛型的约束
+  - 有这么一个需求：
+  - 传入的参数必须得有 length 这个属性
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```js
+interface IWithLength {
+  length: number
+}
+function echowithLenght<T extends IWithLength>(arg: T): T {
+  console.log(arg.length)
+  return arg
+}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 泛型类和接口
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```js
+class Queue<T> {
+  private data = [];
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  push(item: T) {
+    return this.data.push(item);
+  }
 
-## Learn More
+  pop(): T {
+    return this.data.shift();
+  }
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+const queue = new Queue<number>();
+queue.push(1);
+// queue.push('str');
+console.log(queue.pop().toFixed());
+// --------
+interface KeyPair<T, U> {
+  key: T;
+  value: U;
+}
+let key1: KeyPair<number, string> = {key: 1, value: "str"}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- _泛型修饰函数_
+
+```js
+interface IPlus<T> {
+  (a: T, b: T): T;
+}
+
+
+function plus(a: number, b: number): number {
+  return a + b;
+}
+
+
+function connect(a: string, b: string): string {
+  return a + b;
+}
+
+
+const a: IPlus<number> = plus;
+const b: IPlus<String> = connect;
+```
+
+## 第 4 章
+
+### 创建自己组件库的色彩体系
+
+- 系统色板- 基础色板 + 中性色板
+- 产品色板 - 品牌色 + 功能色板
+
+### 组件库样式变量分类
+
+- 基础色彩系统
+- 字体系统
+- 表单
+- 按钮
+- 边框和阴影
+- 可选配置开关
