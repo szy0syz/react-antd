@@ -6,11 +6,11 @@ import MenuItem from './components/Menu/menuItem';
 function App() {
   return (
     <div>
-      <Menu defaultIndex={0}>
-        <MenuItem>cool link 1</MenuItem>
-        <MenuItem>cool link 2</MenuItem>
-        <MenuItem>cool link 3</MenuItem>
-        <MenuItem>cool link 4</MenuItem>
+      <Menu defaultIndex={0} mode='verrical' onSelect={(index) => {}}>
+        <MenuItem index={0}>cool link 1</MenuItem>
+        <MenuItem index={1}>cool link 2</MenuItem>
+        <MenuItem index={2} disabled>cool link 3</MenuItem>
+        <MenuItem index={3}>cool link 4</MenuItem>
       </Menu>
 
       <Button className="custom">Button</Button>

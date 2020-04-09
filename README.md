@@ -101,19 +101,16 @@ let key1: KeyPair<number, string> = {key: 1, value: "str"}
 
 ```js
 interface IPlus<T> {
-  (a: T, b: T): T;
+  (a: T, b: T): T;
 }
-
 
 function plus(a: number, b: number): number {
-  return a + b;
+  return a + b;
 }
-
 
 function connect(a: string, b: string): string {
-  return a + b;
+  return a + b;
 }
-
 
 const a: IPlus<number> = plus;
 const b: IPlus<String> = connect;
@@ -149,7 +146,7 @@ const b: IPlus<String> = connect;
   vertical-align: middle;
   background-image: none;
   border: $btn-border-width solid transparent;
-  @include button-size( $btn-padding-y,  $btn-padding-x,  $btn-font-size,  $border-radius);
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $border-radius);
   box-shadow: $btn-box-shadow;
   cursor: pointer;
   transition: $btn-transition;
@@ -165,8 +162,8 @@ const b: IPlus<String> = connect;
 }
 ```
 
-- 支持原生DOM属性
-  - 拿到所有原生button属性 `React.ButtonHTMLAttributes<HTMLElement>`
+- 支持原生 DOM 属性
+  - 拿到所有原生 button 属性 `React.ButtonHTMLAttributes<HTMLElement>`
   - 如果合并两个类型的属性呢？ `Intersection Types` 交叉类型，用 `&` 表示
   - 联合类型 `|`，仅能返回 `a` 或 `b` 其中一个
 - `Partial<T & U>` 所有属性都变为可选属性
@@ -186,4 +183,45 @@ test('first react test case', () => {
   const element = wrapper.queryByText('OK');
   expect(element).toBeTruthy();
 });
+```
+
+## 第 6 章
+
+- 如果多处都要用某个类型，那就来个类型别名吧.
+
+```ts
+type SelectCallback = (selectedIndex: number) => void;
+```
+
+- **解决 “爷父子孙” 嵌套组件状态、属性、回调传递和共享**
+
+```jsx
+interface IMenuContent {
+  index: number;
+  onSelect?: SelectCallback;
+}
+
+export const MenuContext = createContext < IMenuContent > { index: 0 };
+
+const Menu: React.FC<MenuProps> = (props) => {
+  const passedContext: IMenuContent = {
+    index: currentIndex ? currentIndex : 0,
+    onSelect: handleClick,
+  };
+
+  return (
+    <ul className={classes} style={style}>
+      <MenuContext.Provider value={passedContext}>
+        {children}
+      </MenuContext.Provider>
+    </ul>
+  );
+};
+
+// ---- 曾孙组件 ----
+import { MenuContext } from './menu'
+
+const MenuItem : React.FC<MenuItemProps> = (props) => {
+  const context = useContext(MenuContext)
+}
 ```
