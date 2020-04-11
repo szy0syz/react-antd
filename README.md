@@ -302,3 +302,27 @@ const SubMenu: React.FC<SubMenuProps> = ({ index, title, children, className }) 
   );
 };
 ```
+
+## 第 7 章
+
+- SCSS精髓
+
+```scss
+$theme-colors:
+(
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
+@each $key, $val in $theme-colors {
+  .icon-#{$key} {
+    color: $val;
+  }
+}
+```
