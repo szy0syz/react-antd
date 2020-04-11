@@ -12,7 +12,7 @@ const testProps: MenuProps = {
 
 const testVerProps: MenuProps = {
   defaultIndex: 0,
-  mode: 'verrical',
+  mode: 'vertical',
 };
 
 const generateMenu = (props: MenuProps) => {
