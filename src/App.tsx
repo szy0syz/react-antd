@@ -8,8 +8,9 @@ function App() {
   return (
     <div>
       <Menu
-        defaultIndex={0}
+        defaultIndex="0"
         mode="vertical"
+        defaultOpenSubMenus={['2']}
         onSelect={(index) => {
           console.log(index);
         }}
