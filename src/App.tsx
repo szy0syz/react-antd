@@ -15,7 +15,7 @@ function App() {
       <Icon icon='coffee' theme="primary" size="10x"/>
       <Menu
         defaultIndex="0"
-        mode="vertical"
+        // mode="vertical"
         defaultOpenSubMenus={['2']}
         onSelect={(index) => {
           console.log(index);

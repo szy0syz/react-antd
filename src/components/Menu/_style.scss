@@ -46,6 +46,8 @@
       }
     }
   }
+
+  // 覆盖垂直模式时的hover状态
   .is-vertical {
     .arrow-icon {
       transform: rotate(0deg) !important;
@@ -58,11 +60,13 @@
   }
 
   .menu-submenu {
-    display: none;
+    opacity: 0;
+    // display: none;
     list-style:none;
     padding-left: 0;
     white-space: nowrap;
-    //transition: $menu-transition;
+    transition: opacity 0.4s ease-in;
+    // transition: $menu-transition;
     .menu-item {
       padding: $menu-item-padding-y $menu-item-padding-x;
       cursor: pointer;
@@ -76,6 +80,7 @@
 
   .menu-submenu.menu-opened {
     display: block;
+    opacity: 1;
   }
 }
 

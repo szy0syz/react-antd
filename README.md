@@ -308,6 +308,7 @@ const SubMenu: React.FC<SubMenuProps> = ({ index, title, children, className }) 
 - SCSS精髓
 
 ```scss
+// -------- _mixin.scss
 $theme-colors:
 (
   "primary":    $primary,
@@ -325,4 +326,55 @@ $theme-colors:
     color: $val;
   }
 }
+```
+
+### 封装自己的动画组件
+
+1. 使用mixin封装css
+
+```scss
+@mixin zoom-animation(
+  $direction: 'top',
+  $scaleStart: scaleY(0),
+  $scaleEnd: scaleY(1),
+  $origin: center top,
+) {
+  .zoom-in-#{$direction}-enter {
+    opacity: 0;
+    transform: $scaleStart;
+  }
+  .zoom-in-#{$direction}-enter-active {
+    opacity: 1;
+    transform: $scaleEnd;
+    transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms;
+    transform-origin: $origin
+  }
+  .zoom-in-#{$direction}-exit {
+    opacity: 1;
+  }
+  .zoom-in-#{$direction}-exit-active {
+    opacity: 0;
+    transform: $scaleStart;
+    transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms;
+    transform-origin: $origin;
+  }
+}
+
+@mixin border-right-radius($raduis) {
+  border-top-right-radius: $raduis;
+  border-bottom-right-radius: $raduis;
+}
+
+@mixin border-left-radius($raduis) {
+  border-top-left-radius: $raduis;
+  border-bottom-left-radius: $raduis;
+}
+
+
+// -------- _animation.scss
+@include zoom-animation('top', scaleY(0), scaleY(1), center top);
+@include zoom-animation('left', scale(0.45, 0.45), scale(1, 1), top left);
+@include zoom-animation('right', scale(0.45, 0.45), scale(1, 1), top right);
+@include zoom-animation('top', scaleY(0), scaleY(1), center bottom);
+
 ```
