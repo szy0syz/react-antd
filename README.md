@@ -378,3 +378,5 @@ $theme-colors:
 @include zoom-animation('top', scaleY(0), scaleY(1), center bottom);
 
 ```
+
+> 测试 ts 版本
